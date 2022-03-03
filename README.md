@@ -1,14 +1,38 @@
-# Autograding Example: Java
-This example project is written in Java, and tested with Gradle/JUnit.
+# 課題 5-2: メソッドの戻り値とオーバーロード
+### 課題の説明
+次のメソッドを定義し、実行例にあるように mainメソッドから
+呼び出しを行うプログラムを作成しなさい。
+ただし、計算する2つの整数は実行時引数で与えること。
 
-### The assignment
-The tests are currently failing because of an output mismatch. Fixing the `System.out.println` in the main method will make the tests green.
 
-### Setup command
-N/A
+| メソッド名 | 戻り値の型   | 引数リスト              | 処理内容         |
+|-------|---------|--------------------|--------------|
+| add   | int型    | int a,  int b      | a + b の結果を返す | 
+| add   | double型 | double a, double b | a + b の結果を返す | 
 
-### Run command
-`gradle test`
+### プログラムの雛形
+```java
+public class Prog52 {
 
-### Notes
-- The JDK is installed on GitHub Actions machines, so you're also able to directly invoke `javac`, `java`, or any other CLI command included in the JDK. 
+	public static void main(String[] args) {
+		String name = args[0];
+		String telNumber = args[1];
+        
+		// メソッドの呼び出しを追加
+		
+	}
+    
+	// メソッドの定義を追加
+	
+}
+```
+
+
+### 実行例
+実行時引数が整数2, 3の場合
+```
+2つの整数を引数にしてadd()を呼び出した結果
+5
+2つの整数をduble型にキャストしてadd()を呼び出した結果
+5.0
+```
