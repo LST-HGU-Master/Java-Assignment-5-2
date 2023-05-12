@@ -15,8 +15,8 @@
 public class Prog52 {
 
     public static void main(String[] args) {
-        String name = args[0];
-        String telNumber = args[1];
+        int a = Integer.parseInt(args[0]);
+        int b = Integer.parseInt(args[1]);
         
         // メソッドの呼び出しを追加
         
