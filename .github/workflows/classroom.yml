@@ -1,0 +1,59 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    - name: testAddInt
+      id: testaddint
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAddInt
+        setup-command: ''
+        command: gradle test
+        timeout: 10
+        max-score: 4
+    - name: testAddDouble
+      id: testadddouble
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAddDouble
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "Prog52Test.testAddDouble"
+        timeout: 10
+        max-score: 4
+    - name: testMain
+      id: testmain
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMain
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "Prog52Test.testMain"
+        timeout: 10
+        max-score: 4
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTADDINT_RESULTS: "${{steps.testaddint.outputs.result}}"
+        TESTADDDOUBLE_RESULTS: "${{steps.testadddouble.outputs.result}}"
+        TESTMAIN_RESULTS: "${{steps.testmain.outputs.result}}"
+      with:
+        runners: testaddint,testadddouble,testmain
